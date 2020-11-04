@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>UnGuided</title>
+        <script src="vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <h1>Ini Game Tebak Angka</h1>
+
+            <h2>{{ randNumb() }}</h2>
+
+             <input v-model="textbox" placeholder="Tulis Angka 1 - 10">
+
+            <button @click="confirm">Konfirmasi Angka</button>
+            <span v-if="chance != 0">
+                <span v-if="randNum==textbox">
+                    <h1>{{resett()}}</h1>
+                </span>
+
+                <span v-else-if="chance != 3">
+                    <h1>{{warning()}}</h1>
+                </span>
+    
+                <span v-else>
+                    <h1>{{gagal(this.randNum)}}</h1>
+                </span>
+            </span>
+            
+        </div>
+    </body>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                textbox: 0,
+                randNum: null,
+                chance: 0,
+            },
+
+            methods: {
+                randNumb(){
+                    randNum = Math.floor(Math.random() * (10 - 1 + 1)) + 1;
+                },
+
+                confirm(){
+                    chance++;
+                },
+
+                selesai(){
+                    reset();
+                    return `selesai!!`;
+                },
+
+                reset(){
+                    chance=0;
+                },
+
+                warning(){
+                    return `yok coba lagi`;
+                },
+
+                gagal(){
+                    reset();
+                    return `YAH, GAGAL!!`;
+                },
+            },
+        });
+    </script>
+</html>
